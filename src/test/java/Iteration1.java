@@ -1,6 +1,5 @@
 import org.junit.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -28,12 +27,14 @@ public class Iteration1 {
         fromAccountId.selectByVisibleText("13122");
         driver.findElement(By.xpath("//input[@value='Apply Now']")).click();
 
+        /*
         try {
             Thread.sleep(2000);
         }
         catch(InterruptedException ie) {
             Assert.fail("INTERRUPT");
         }
+        */
 
         String actualStatus = driver.findElement(By.id("loanStatus")).getText();
 

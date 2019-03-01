@@ -1,14 +1,9 @@
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
-import helpers.SeleniumHelpers;
+import com.tngtech.java.junit.dataprovider.*;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.ParabankLoanApplicationPage;
-import pages.ParabankLoginPage;
-import pages.ParabankSideMenu;
+import pages.*;
 
 import static io.restassured.RestAssured.given;
 
@@ -16,7 +11,6 @@ import static io.restassured.RestAssured.given;
 public class Iteration6 {
 
     private WebDriver driver;
-    private SeleniumHelpers seleniumHelpers = new SeleniumHelpers();
 
     @DataProvider
     public static Object[][] createTestDataObject() {

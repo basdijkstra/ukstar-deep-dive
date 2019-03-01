@@ -1,18 +1,25 @@
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import com.tngtech.java.junit.dataprovider.*;
+import org.junit.*;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.ParabankLoanApplicationPage;
-import pages.ParabankLoginPage;
-import pages.ParabankSideMenu;
+import pages.*;
 
 import static io.restassured.RestAssured.given;
 
-public class Iteration5 {
+@RunWith(DataProviderRunner.class)
+public class Iteration7 {
 
     private WebDriver driver;
+
+    @DataProvider
+    public static Object[][] createTestDataObject() {
+        return new Object[][] {
+            {"1000", "100", "13122", "Approved"},
+            {"500", "50", "13122", "Approved"},
+            {"10000", "100", "13122", "Denied"}
+        };
+    }
 
     @Before
     public void initializeDatabase() {
@@ -35,7 +42,9 @@ public class Iteration5 {
     }
 
     @Test
-    public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted() {
+    @UseDataProvider("createTestDataObject")
+    public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted
+        (String loanAmount, String downPayment, String fromAccountId, String expectedStatus) {
 
         new ParabankLoginPage(driver).
             setUsername("john").
@@ -48,13 +57,13 @@ public class Iteration5 {
         String actualStatus =
 
         new ParabankLoanApplicationPage(driver).
-            setLoanAmount("1000").
-            setDownPayment("100").
-            selectFromAccount("13122").
+            setLoanAmount(loanAmount).
+            setDownPayment(downPayment).
+            selectFromAccount(fromAccountId).
             applyForLoan().
             getApplicationResult();
 
-        Assert.assertEquals("Approved", actualStatus);
+        Assert.assertEquals(expectedStatus, actualStatus);
     }
 
     @After

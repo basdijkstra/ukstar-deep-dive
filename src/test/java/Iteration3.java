@@ -1,28 +1,12 @@
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import helpers.SeleniumHelpers;
+import org.junit.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
-
-import static io.restassured.RestAssured.given;
 
 public class Iteration3 {
 
     private WebDriver driver;
-
-    @Before
-    public void initializeDatabase() {
-
-        given().
-        when().
-            post("http://localhost:8080/parabank/services/bank/initializeDB").
-        then().
-            log().
-            all();
-    }
+    private SeleniumHelpers seleniumHelpers = new SeleniumHelpers();
 
     @Before
     public void initializeBrowser() {
@@ -38,26 +22,18 @@ public class Iteration3 {
 
         driver.get("http://localhost:8080/parabank");
 
-        driver.findElement(By.name("username")).sendKeys("john");
-        driver.findElement(By.name("password")).sendKeys("demo");
-        driver.findElement(By.xpath("//input[@value='Log In']")).click();
+        seleniumHelpers.sendKeys(driver, By.name("username"), "john");
+        seleniumHelpers.sendKeys(driver, By.name("password"), "demo");
+        seleniumHelpers.click(driver, By.xpath("//input[@value='Log In']"));
 
-        driver.findElement(By.linkText("Request Loan")).click();
+        seleniumHelpers.click(driver, By.linkText("Request Loan"));
 
-        driver.findElement(By.id("amount")).sendKeys("1000");
-        driver.findElement(By.id("downPayment")).sendKeys("100");
-        Select fromAccountId = new Select(driver.findElement(By.id("fromAccountId")));
-        fromAccountId.selectByVisibleText("13122");
-        driver.findElement(By.xpath("//input[@value='Apply Now']")).click();
+        seleniumHelpers.sendKeys(driver, By.id("amount"), "1000");
+        seleniumHelpers.sendKeys(driver, By.id("downPayment"), "100");
+        seleniumHelpers.select(driver, By.id("fromAccountId"), "13122");
+        seleniumHelpers.click(driver, By.xpath("//input[@value='Apply Now']"));
 
-        try {
-            Thread.sleep(2000);
-        }
-        catch(InterruptedException ie) {
-            Assert.fail("INTERRUPT");
-        }
-
-        String actualStatus = driver.findElement(By.id("loanStatus")).getText();
+        String actualStatus = seleniumHelpers.getElementText(driver, By.id("loanStatus"));
 
         Assert.assertEquals("Approved", actualStatus);
     }
