@@ -1,13 +1,16 @@
-import com.tngtech.java.junit.dataprovider.*;
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import io.restassured.http.ContentType;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(DataProviderRunner.class)
-public class Iteration7 {
+public class Iteration8 {
 
     @DataProvider
     public static Object[][] createTestDataObject() {
@@ -16,17 +19,6 @@ public class Iteration7 {
             {"10000", "100", "13122", false},
             {"9999", "99", "13122", false}
         };
-    }
-
-    @Before
-    public void initializeDatabase() {
-
-        given().
-        when().
-            post("http://localhost:8080/parabank/services/bank/initializeDB").
-        then().
-            log().
-            all();
     }
 
     @Test

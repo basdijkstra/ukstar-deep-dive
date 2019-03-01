@@ -43,7 +43,7 @@ public class Iteration6 {
 
     @Test
     @UseDataProvider("createTestDataObject")
-    public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted
+    public void DoLoanRequest_UsingVariousAmounts_ShouldBeAcceptedOrDeniedAsExpected
         (String loanAmount, String downPayment, String fromAccountId, String expectedStatus) {
 
         new ParabankLoginPage(driver).
