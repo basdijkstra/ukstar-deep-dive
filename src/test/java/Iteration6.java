@@ -1,8 +1,9 @@
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import helpers.SeleniumHelpers;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.ParabankLoanApplicationPage;
@@ -11,10 +12,20 @@ import pages.ParabankSideMenu;
 
 import static io.restassured.RestAssured.given;
 
-public class Iteration5 {
+@RunWith(DataProviderRunner.class)
+public class Iteration6 {
 
     private WebDriver driver;
     private SeleniumHelpers seleniumHelpers = new SeleniumHelpers();
+
+    @DataProvider
+    public static Object[][] createTestDataObject() {
+        return new Object[][] {
+            {"1000", "100", "13122", "Approved"},
+            {"500", "50", "13122", "Approved"},
+            {"10000", "100", "13122", "Denied"}
+        };
+    }
 
     @Before
     public void initializeDatabase() {
@@ -37,7 +48,9 @@ public class Iteration5 {
     }
 
     @Test
-    public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted() {
+    @UseDataProvider("createTestDataObject")
+    public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted
+        (String loanAmount, String downPayment, String fromAccountId, String expectedStatus) {
 
         new ParabankLoginPage(driver).
             setUsername("john").
@@ -50,13 +63,13 @@ public class Iteration5 {
         String actualStatus =
 
         new ParabankLoanApplicationPage(driver).
-            setLoanAmount("1000").
-            setDownPayment("100").
-            selectFromAccount("13122").
+            setLoanAmount(loanAmount).
+            setDownPayment(downPayment).
+            selectFromAccount(fromAccountId).
             applyForLoan().
             getApplicationResult();
 
-        Assert.assertEquals("Approved", actualStatus);
+        Assert.assertEquals(expectedStatus, actualStatus);
     }
 
     @After

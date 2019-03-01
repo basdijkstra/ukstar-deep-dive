@@ -19,7 +19,7 @@ public class ParabankLoanApplicationPage {
         _driver = driver;
     }
 
-    public ParabankLoanApplicationPage setLoanAmounnt(String loanAmount) {
+    public ParabankLoanApplicationPage setLoanAmount(String loanAmount) {
 
         seleniumHelpers.sendKeys(_driver, textfieldLoanAmount, loanAmount);
         return this;
