@@ -15,24 +15,28 @@ public class ParabankLoginPage {
     public ParabankLoginPage(WebDriver driver) {
 
         _driver = driver;
-        _driver.get("http://localhost:8080/parabank");
+        _driver.get("http://parabank.parasoft.com/parabank");
     }
 
-    public ParabankLoginPage setUsername(String username) {
+    public void loginAs(String username, String password) {
+
+        setUsername(username).setPassword(password).clickLoginButton();
+    }
+
+    private ParabankLoginPage setUsername(String username) {
 
         seleniumHelpers.sendKeys(_driver, textfieldUsername, username);
         return this;
     }
 
-    public ParabankLoginPage setPassword(String password) {
+    private ParabankLoginPage setPassword(String password) {
 
         seleniumHelpers.sendKeys(_driver, textfieldPassword, password);
         return this;
     }
 
-    public void doLogin() {
+    private void clickLoginButton() {
 
         seleniumHelpers.click(_driver, buttonLogin);
     }
-
 }

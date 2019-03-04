@@ -1,25 +1,18 @@
-import helpers.SeleniumHelpers;
-import org.junit.*;
-import org.openqa.selenium.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.ParabankLoanApplicationPage;
+import pages.ParabankLoginPage;
+import pages.ParabankSideMenu;
 
 import static io.restassured.RestAssured.given;
 
 public class Iteration4 {
 
     private WebDriver driver;
-    private SeleniumHelpers seleniumHelpers = new SeleniumHelpers();
-
-    @Before
-    public void initializeDatabase() {
-
-        given().
-        when().
-            post("http://localhost:8080/parabank/services/bank/initializeDB").
-        then().
-            log().
-            all();
-    }
 
     @Before
     public void initializeBrowser() {
@@ -33,20 +26,16 @@ public class Iteration4 {
     @Test
     public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted() {
 
-        driver.get("http://localhost:8080/parabank");
+        new ParabankLoginPage(driver).
+            loginAs("john","demo");
 
-        seleniumHelpers.sendKeys(driver, By.name("username"), "john");
-        seleniumHelpers.sendKeys(driver, By.name("password"), "demo");
-        seleniumHelpers.click(driver, By.xpath("//input[@value='Log In']"));
+        new ParabankSideMenu(driver).
+            selectMenuItem("Request Loan");
 
-        seleniumHelpers.click(driver, By.linkText("Request Loan"));
+        String actualStatus =
 
-        seleniumHelpers.sendKeys(driver, By.id("amount"), "1000");
-        seleniumHelpers.sendKeys(driver, By.id("downPayment"), "100");
-        seleniumHelpers.select(driver, By.id("fromAccountId"), "13122");
-        seleniumHelpers.click(driver, By.xpath("//input[@value='Apply Now']"));
-
-        String actualStatus = seleniumHelpers.getElementText(driver, By.id("loanStatus"));
+            new ParabankLoanApplicationPage(driver).
+                applyForLoanAndRetrieveResult("1000","100","13122");
 
         Assert.assertEquals("Approved", actualStatus);
     }

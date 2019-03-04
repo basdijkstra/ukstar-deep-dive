@@ -26,7 +26,7 @@ public class Iteration6 {
 
         given().
         when().
-            post("http://localhost:8080/parabank/services/bank/initializeDB").
+            post("http://parabank.parasoft.com/parabank/services/bank/initializeDB").
         then().
             log().
             all();
@@ -47,21 +47,15 @@ public class Iteration6 {
         (String loanAmount, String downPayment, String fromAccountId, String expectedStatus) {
 
         new ParabankLoginPage(driver).
-            setUsername("john").
-            setPassword("demo").
-            doLogin();
+            loginAs("john","demo");
 
         new ParabankSideMenu(driver).
-            selectMenuItemByVisibleText("Request Loan");
+            selectMenuItem("Request Loan");
 
         String actualStatus =
 
-        new ParabankLoanApplicationPage(driver).
-            setLoanAmount(loanAmount).
-            setDownPayment(downPayment).
-            selectFromAccount(fromAccountId).
-            applyForLoan().
-            getApplicationResult();
+            new ParabankLoanApplicationPage(driver).
+                applyForLoanAndRetrieveResult(loanAmount,downPayment,fromAccountId);
 
         Assert.assertEquals(expectedStatus, actualStatus);
     }

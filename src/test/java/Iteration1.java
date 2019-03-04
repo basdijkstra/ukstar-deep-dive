@@ -13,7 +13,7 @@ public class Iteration1 {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        driver.get("http://localhost:8080/parabank");
+        driver.get("http://parabank.parasoft.com/parabank");
 
         driver.findElement(By.name("username")).sendKeys("john");
         driver.findElement(By.name("password")).sendKeys("demo");

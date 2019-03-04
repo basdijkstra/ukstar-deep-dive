@@ -23,7 +23,7 @@ public class Iteration7 {
 
         given().
         when().
-            post("http://localhost:8080/parabank/services/bank/initializeDB").
+            post("http://parabank.parasoft.com/parabank/services/bank/initializeDB").
         then().
             log().
             all();
@@ -42,7 +42,7 @@ public class Iteration7 {
             queryParam("downPayment", downPayment).
             queryParam("fromAccountId", fromAccountId).
         when().
-            post("http://localhost:8080/parabank/services/bank/requestLoan").
+            post("http://parabank.parasoft.com/parabank/services/bank/requestLoan").
         then().
             log().body().
         and().

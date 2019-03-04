@@ -13,7 +13,7 @@ public class ParabankSideMenu {
         _driver = driver;
     }
 
-    public void selectMenuItemByVisibleText(String linkText) {
+    public void selectMenuItem(String linkText) {
 
         seleniumHelpers.click(_driver, By.linkText(linkText));
     }

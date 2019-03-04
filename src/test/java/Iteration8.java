@@ -34,7 +34,7 @@ public class Iteration8 {
             queryParam("downPayment", downPayment).
             queryParam("fromAccountId", fromAccountId).
         when().
-            post("http://localhost:8080/parabank/services/bank/requestLoan").
+            post("http://parabank.parasoft.com/parabank/services/bank/requestLoan").
         then().
             log().body().
         and().

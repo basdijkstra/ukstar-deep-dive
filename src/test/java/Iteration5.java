@@ -14,7 +14,7 @@ public class Iteration5 {
 
         given().
         when().
-            post("http://localhost:8080/parabank/services/bank/initializeDB").
+            post("http://parabank.parasoft.com/parabank/services/bank/initializeDB").
         then().
             log().
             all();
@@ -33,21 +33,15 @@ public class Iteration5 {
     public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted() {
 
         new ParabankLoginPage(driver).
-            setUsername("john").
-            setPassword("demo").
-            doLogin();
+            loginAs("john","demo");
 
         new ParabankSideMenu(driver).
-            selectMenuItemByVisibleText("Request Loan");
+            selectMenuItem("Request Loan");
 
         String actualStatus =
 
-        new ParabankLoanApplicationPage(driver).
-            setLoanAmount("1000").
-            setDownPayment("100").
-            selectFromAccount("13122").
-            applyForLoan().
-            getApplicationResult();
+            new ParabankLoanApplicationPage(driver).
+                applyForLoanAndRetrieveResult("1000","100","13122");
 
         Assert.assertEquals("Approved", actualStatus);
     }

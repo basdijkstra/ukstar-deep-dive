@@ -19,31 +19,40 @@ public class ParabankLoanApplicationPage {
         _driver = driver;
     }
 
-    public ParabankLoanApplicationPage setLoanAmount(String loanAmount) {
+    public String applyForLoanAndRetrieveResult(String loanAmount, String downPayment, String fromAccountId) {
+
+        return setLoanAmount(loanAmount).
+            setDownPayment(downPayment).
+            selectFromAccount(fromAccountId).
+            applyForLoan().
+            getApplicationResult();
+    }
+
+    private ParabankLoanApplicationPage setLoanAmount(String loanAmount) {
 
         seleniumHelpers.sendKeys(_driver, textfieldLoanAmount, loanAmount);
         return this;
     }
 
-    public ParabankLoanApplicationPage setDownPayment(String downPayment) {
+    private ParabankLoanApplicationPage setDownPayment(String downPayment) {
 
         seleniumHelpers.sendKeys(_driver, textfieldDownPayment, downPayment);
         return this;
     }
 
-    public ParabankLoanApplicationPage selectFromAccount(String fromAccount) {
+    private ParabankLoanApplicationPage selectFromAccount(String fromAccount) {
 
         seleniumHelpers.select(_driver, dropdownFromAccount, fromAccount);
         return this;
     }
 
-    public ParabankLoanApplicationPage applyForLoan() {
+    private ParabankLoanApplicationPage applyForLoan() {
 
         seleniumHelpers.click(_driver, buttonApplyNow);
         return this;
     }
 
-    public String getApplicationResult() {
+    private String getApplicationResult() {
 
         return seleniumHelpers.getElementText(_driver, textfieldApplicationResult);
     }

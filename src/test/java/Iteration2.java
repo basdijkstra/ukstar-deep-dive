@@ -19,7 +19,7 @@ public class Iteration2 {
     @Test
     public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted() {
 
-        driver.get("http://localhost:8080/parabank");
+        driver.get("http://parabank.parasoft.com/parabank");
 
         driver.findElement(By.name("username")).sendKeys("john");
         driver.findElement(By.name("password")).sendKeys("demo");
