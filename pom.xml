@@ -10,29 +10,42 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <restassured.version>3.3.0</restassured.version>
+        <junit.version>4.12</junit.version>
+        <junit.dataprovider.version>2.4</junit.dataprovider.version>
+        <selenium.webdriver.version>3.141.59</selenium.webdriver.version>
+        <webdrivermanager.version>3.3.0</webdrivermanager.version>
     </properties>
     <dependencies>
-    <dependency>
-        <groupId>io.rest-assured</groupId>
-        <artifactId>rest-assured</artifactId>
-        <version>3.3.0</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.tngtech.junit.dataprovider</groupId>
-        <artifactId>junit4-dataprovider</artifactId>
-        <version>2.4</version>
-    </dependency><dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-java</artifactId>
-        <version>3.141.59</version>
-    </dependency></dependencies>
-
-
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.junit.dataprovider</groupId>
+            <artifactId>junit4-dataprovider</artifactId>
+            <version>${junit.dataprovider.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.webdriver.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

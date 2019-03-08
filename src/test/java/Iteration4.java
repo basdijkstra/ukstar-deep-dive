@@ -1,7 +1,5 @@
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.ParabankLoanApplicationPage;
@@ -14,10 +12,14 @@ public class Iteration4 {
 
     private WebDriver driver;
 
+    @BeforeClass
+    public static void manageBrowserDriver() {
+
+        WebDriverManager.chromedriver().setup();
+    }
+
     @Before
     public void initializeBrowser() {
-
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();

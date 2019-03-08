@@ -1,4 +1,5 @@
 import helpers.SeleniumHelpers;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,10 +9,14 @@ public class Iteration3 {
     private WebDriver driver;
     private SeleniumHelpers seleniumHelpers = new SeleniumHelpers();
 
+    @BeforeClass
+    public static void manageBrowserDriver() {
+
+        WebDriverManager.chromedriver().setup();
+    }
+
     @Before
     public void initializeBrowser() {
-
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -20,7 +25,7 @@ public class Iteration3 {
     @Test
     public void DoLoanRequest_UsingAmountsWithinLimits_ShouldBeAccepted() {
 
-        driver.get("http://parabank.parasoft.com/parabank");
+        driver.get("http://localhost:8080/parabank");
 
         seleniumHelpers.sendKeys(driver, By.name("username"), "john");
         seleniumHelpers.sendKeys(driver, By.name("password"), "demo");

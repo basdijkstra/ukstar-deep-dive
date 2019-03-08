@@ -1,4 +1,5 @@
 import com.tngtech.java.junit.dataprovider.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
@@ -21,24 +22,28 @@ public class Iteration6 {
         };
     }
 
-    @Before
-    public void initializeDatabase() {
+    @BeforeClass
+    public static void manageBrowserDriver() {
 
-        given().
-        when().
-            post("http://parabank.parasoft.com/parabank/services/bank/initializeDB").
-        then().
-            log().
-            all();
+        WebDriverManager.chromedriver().setup();
     }
 
     @Before
     public void initializeBrowser() {
 
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+    }
+
+    @Before
+    public void initializeDatabase() {
+
+        given().
+            when().
+            post("http://localhost:8080/parabank/services/bank/initializeDB").
+            then().
+            log().
+            all();
     }
 
     @Test

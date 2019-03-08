@@ -22,9 +22,9 @@ public class Iteration7 {
     public void initializeDatabase() {
 
         given().
-        when().
-            post("http://parabank.parasoft.com/parabank/services/bank/initializeDB").
-        then().
+            when().
+            post("http://localhost:8080/parabank/services/bank/initializeDB").
+            then().
             log().
             all();
     }
@@ -42,7 +42,7 @@ public class Iteration7 {
             queryParam("downPayment", downPayment).
             queryParam("fromAccountId", fromAccountId).
         when().
-            post("http://parabank.parasoft.com/parabank/services/bank/requestLoan").
+            post("http://localhost:8080/parabank/services/bank/requestLoan").
         then().
             log().body().
         and().

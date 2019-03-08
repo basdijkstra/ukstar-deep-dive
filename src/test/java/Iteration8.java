@@ -16,8 +16,8 @@ public class Iteration8 {
     public static Object[][] createTestDataObject() {
         return new Object[][] {
             {"500", "50", "13122", true},
-            {"10000", "100", "13122", false},
-            {"9999", "99", "13122", false}
+            {"10000", "100", "13122", true},
+            {"9999", "99", "13122", true}
         };
     }
 
@@ -34,7 +34,7 @@ public class Iteration8 {
             queryParam("downPayment", downPayment).
             queryParam("fromAccountId", fromAccountId).
         when().
-            post("http://parabank.parasoft.com/parabank/services/bank/requestLoan").
+            post("http://localhost:8080/parabank/services/bank/requestLoan").
         then().
             log().body().
         and().

@@ -13,7 +13,7 @@ public class Iteration1 {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        driver.get("http://parabank.parasoft.com/parabank");
+        driver.get("http://localhost:8080/parabank");
 
         driver.findElement(By.name("username")).sendKeys("john");
         driver.findElement(By.name("password")).sendKeys("demo");
@@ -26,15 +26,6 @@ public class Iteration1 {
         Select fromAccountId = new Select(driver.findElement(By.id("fromAccountId")));
         fromAccountId.selectByVisibleText("13122");
         driver.findElement(By.xpath("//input[@value='Apply Now']")).click();
-
-        /*
-        try {
-            Thread.sleep(2000);
-        }
-        catch(InterruptedException ie) {
-            Assert.fail("INTERRUPT");
-        }
-        */
 
         String actualStatus = driver.findElement(By.id("loanStatus")).getText();
 

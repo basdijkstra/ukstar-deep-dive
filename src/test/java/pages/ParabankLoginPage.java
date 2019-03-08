@@ -15,7 +15,7 @@ public class ParabankLoginPage {
     public ParabankLoginPage(WebDriver driver) {
 
         _driver = driver;
-        _driver.get("http://parabank.parasoft.com/parabank");
+        _driver.get("http://localhost:8080/parabank");
     }
 
     public void loginAs(String username, String password) {
